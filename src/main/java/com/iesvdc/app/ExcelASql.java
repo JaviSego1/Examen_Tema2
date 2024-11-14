@@ -1,4 +1,4 @@
-package com.example;
+package com.iesvdc.app;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -18,16 +18,16 @@ import java.util.Scanner;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import com.example.modelos.Horario;
-import com.example.modelos.Usuario;
-import com.example.modelos.Instalacion;
-import com.example.modelos.Reserva;
+import com.iesvdc.modelos.Horario;
+import com.iesvdc.modelos.Instalacion;
+import com.iesvdc.modelos.Reserva;
+import com.iesvdc.modelos.Usuario;
 
 public class ExcelASql {
     
     // Método para generar el archivo SQL
     public static void generarSQL(List<Usuario> usuarios, List<Instalacion> instalaciones, List<Horario> horarios, List<Reserva> reservas) throws IOException {
-        FileWriter writer = new FileWriter("C:\\Users\\mañana\\Desktop\\demo\\src\\main\\java\\com\\example\\stack\\scripts\\initdb.sql");
+        FileWriter writer = new FileWriter("C:\\Users\\mañana\\Desktop\\demo\\src\\main\\java\\com\\iesvdc\\stack\\scripts\\initdb.sql");
 
         // Crear base de datos y seleccionarla
         writer.write("CREATE DATABASE IF NOT EXISTS `reservas`;\n\n");
@@ -230,22 +230,26 @@ public class ExcelASql {
         // Menú de consultas
         Scanner scanner = new Scanner(System.in);
         System.out.println("Selecciona una consulta para ejecutar:");
-        System.out.println("1. Ver todos los usuarios");
-        System.out.println("2. Ver todos los productos");
-        System.out.println("3. Ver todas las ventas");
+        System.out.println("1. Ver todas las reservas con la información del usuario, instalación y horario");
+        System.out.println("2. Ver el historial de reservas para cada usuario");
+        System.out.println("3. Ver los horarios disponibles para cada instalación");
+        System.out.println("4. Salir de la aplicacion");
         System.out.print("Ingresa el número de la consulta: ");
         int opcion = scanner.nextInt();
 
         switch (opcion) {
             case 1:
-                ejecutarConsulta("SELECT * FROM Usuarios;");
+                ejecutarConsulta("SELECT * FROM reserva;");
                 break;
             case 2:
-                ejecutarConsulta("SELECT * FROM Productos;");
+                ejecutarConsulta("SELECT * FROM reservas;");
                 break;
             case 3:
-                ejecutarConsulta("SELECT * FROM Ventas;");
+                ejecutarConsulta("SELECT instalacion FROM horario;");
                 break;
+            case 4:
+                System.exit(0);
+            break;
             default:
                 System.out.println("Opción inválida.");
         }

@@ -1,4 +1,4 @@
-package com.example.modelos;
+package com.iesvdc.modelos;
 
 public class Reserva {
 
